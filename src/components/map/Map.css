@@ -1,5 +1,11 @@
 .mapWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 24px;
+}
+
+.error {
+  padding-bottom: 12px;
 }
