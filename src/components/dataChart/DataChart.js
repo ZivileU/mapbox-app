@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import CustomTooltip from './customTooltip/CustomTooltip'
 import { mapData } from './dataChart.utility'
-import './DataChart.css'
 
 const apiUrl = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=60.10&lon=9.58'
 
@@ -27,18 +27,6 @@ const DataChart = () => {
       });
   }, [setAppState]);
 
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`${label} : ${payload[0].value} m/s`}</p>
-        </div>
-      );
-    }
-
-    return null;
-  };
-
   console.log(appState.data)
 
   return (
@@ -46,9 +34,9 @@ const DataChart = () => {
       <CartesianGrid strokeDasharray='3 3' />
       <XAxis dataKey='time' />
       <YAxis />
-      <Tooltip payload={appState.data} content={<CustomTooltip />} />
+      <Tooltip content={<CustomTooltip />} />
       <Legend />
-      <Line type='monotone' dataKey='windSpeed' stroke="#8884d8" activeDot={{ r: 6 }} />
+      <Line type='monotone' dataKey='windSpeed' stroke='#8884d8' activeDot={{ r: 6 }} />
     </LineChart>
   );
 }
