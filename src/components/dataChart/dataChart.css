@@ -1,0 +1,37 @@
+.dataChart {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  padding: 18px 36px 36px 0;
+}
+
+h3 {
+  font-weight: 400;
+  margin: 12px;
+}
+
+.legend {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.legend span {
+  position: relative;
+}
+
+.legend span:nth-child(2):before, .legend span:last-child:before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background-color: red;
+  position: absolute;
+  top: 8px;
+  left: -40px;
+}
+
+.legend span:last-child:before {
+  background-color: #0E8C38;
+}

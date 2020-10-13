@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import MapGL, { Source, Layer } from 'react-map-gl'
-import DataChart from '../dataChart/DataChart'
+import MapGL, { Source, Layer , Marker} from 'react-map-gl'
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';import DataChart from '../dataChart/DataChart'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Map.css'
 
@@ -9,8 +9,8 @@ const apiUrl = `https://wfs-kbhkort.kk.dk/k101/ows?service=WFS&version=1.0.0&req
 
 const Map = () => {
   const [viewport, setViewPort] = useState({
-    width: 1200,
-    height: 900,
+    width: '100vw',
+    height: '100vh',
     latitude: 55.6961,
     longitude: 12.4800,
     zoom: 11
@@ -52,6 +52,9 @@ const Map = () => {
         onViewportChange={onViewportChange}
         onNativeClick={e => setCoordinates({latitude: e.lngLat[0], longitude: e.lngLat[1]})}
       >
+        <Marker latitude={coordinates.latitude} longitude={coordinates.longitude} >
+          <FiberManualRecordIcon style={{ color: 'crimson', fontSize: 32, cursor: 'pointer' }} />
+        </Marker>
         {dataFetch.data &&
           <Fragment>
             <Source
@@ -65,7 +68,7 @@ const Map = () => {
                 type='line'
                 paint={{
                   'line-color': 'red',
-                  'line-width': 2
+                  'line-width': 1
                 }}
               />
             </Source>
@@ -79,8 +82,8 @@ const Map = () => {
                 source='greenPaths'
                 type='line'
                 paint={{
-                  'line-color': 'green',
-                  'line-width': 2
+                  'line-color': '#0E8C38',
+                  'line-width': 1
                 }}
               />
             </Source>
