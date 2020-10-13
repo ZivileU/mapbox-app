@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import MapGL, { Source, Layer } from 'react-map-gl'
+import DataChart from '../dataChart/DataChart'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Map.css'
 
@@ -15,42 +16,48 @@ const Map = () => {
     zoom: 11
   });
 
-  const [appState, setAppState] = useState({
+  const [dataFetch, setDataFetch] = useState({
     loading: false,
     data: null,
     error: null
   });
 
+  const [coordinates, setCoordinates] = useState({
+    latitude: 55.6961,
+    longitude: 12.4800
+  })
+
   const onViewportChange = viewport => setViewPort({...viewport})
 
   useEffect(() => {
-    setAppState({loading: true});
+    setDataFetch({loading: true});
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
-        setAppState({loading: false, data: data})
+        setDataFetch({loading: false, data: data})
       }).catch(() => {
-        setAppState({error: 'Failed to retrieve data'})
+        setDataFetch({error: 'Failed to retrieve data'})
       });
-    }, [setAppState]);
+    }, [setDataFetch]);
 
-  const greenRoutes = appState.data?.features.filter(entry => entry.properties.under_kategori === 'Grøn')
+  const greenRoutes = dataFetch.data?.features.filter(entry => entry.properties.under_kategori === 'Grøn')
 
   return (
     <div className='mapWrapper'>
-      {appState.error && <div className='error'>{appState.error}</div>}
+      {dataFetch.error && <div className='error'>{dataFetch.error}</div>}
       <MapGL
         {...viewport}
         mapboxApiAccessToken={token}
         mapStyle='mapbox://styles/mapbox/streets-v11'
         onViewportChange={onViewportChange}
+        onNativeClick={e => setCoordinates({latitude: e.lngLat[0], longitude: e.lngLat[1]})}
       >
-        {appState.data &&
+        {dataFetch.data &&
           <Fragment>
             <Source
               id='bicyclePaths'
               type="geojson"
-              data={appState.data}
+              data={dataFetch.data}
             >
               <Layer
                 id='bicyclePaths'
@@ -65,7 +72,7 @@ const Map = () => {
             <Source
               id='greenPaths'
               type="geojson"
-              data={{...appState.data, features: greenRoutes, totalFeatures: greenRoutes.length}}
+              data={{...dataFetch.data, features: greenRoutes, totalFeatures: greenRoutes.length}}
             >
               <Layer
                 id='greenPaths'
@@ -80,6 +87,7 @@ const Map = () => {
           </Fragment>
         }
       </MapGL>
+      <DataChart latitude={coordinates.latitude} longitude={coordinates.longitude} />
     </div>
   );
 }
