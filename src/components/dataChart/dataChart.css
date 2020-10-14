@@ -5,6 +5,8 @@
   left: 0;
   margin: 12px;
   padding: 18px 36px 36px 0;
+  width: 650px;
+  height: 265px;
 }
 
 h3 {
@@ -34,4 +36,10 @@ h3 {
 
 .legend span:last-child:before {
   background-color: #0E8C38;
+}
+
+.dataChart .MuiCircularProgress-root {
+  position: absolute;
+  top: 50%;
+  margin-top: -20px;
 }
