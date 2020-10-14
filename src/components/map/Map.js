@@ -59,7 +59,7 @@ const Map = () => {
               onNativeClick={e => setCoordinates({latitude: e.lngLat[0], longitude: e.lngLat[1]})}
             >
               <Marker latitude={coordinates.latitude} longitude={coordinates.longitude} >
-                <FiberManualRecordIcon style={{ color: 'crimson', fontSize: 32, cursor: 'pointer' }} />
+                <FiberManualRecordIcon style={{ color: 'crimson', fontSize: 28, cursor: 'pointer' }} />
               </Marker>
               {dataFetch.data &&
                 <Fragment>

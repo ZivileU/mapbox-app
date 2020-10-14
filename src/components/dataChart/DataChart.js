@@ -15,7 +15,7 @@ const DataChart = ({ latitude, longitude }) => {
   })
 
   useEffect(() => {
-    let unmounted = false
+    let unmounted = false // To prevent state updates on an unmounted component
     setDataFetch({loading: true})
 
     fetch(apiUrl)
@@ -48,7 +48,7 @@ const DataChart = ({ latitude, longitude }) => {
               <CartesianGrid strokeDasharray='3 3' />
               <XAxis dataKey='time' />
               <YAxis />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={ <CustomTooltip /> } />
               <Line type='monotone' dataKey='windSpeed' stroke='#75CFF0' strokeWidth='2' activeDot={{ r: 7 }} />
             </LineChart>
             <div className='legend'>
