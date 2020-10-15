@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import MapGL, { Source, Layer , Marker} from 'react-map-gl'
+import InteractiveMap, { Source, Layer , Marker} from 'react-map-gl'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import DataChart from '../dataChart/DataChart'
@@ -44,6 +44,8 @@ const Map = () => {
 
   const greenRoutes = dataFetch.data?.features.filter(entry => entry.properties.under_kategori === 'Grøn')
 
+  const handleClick = ({lngLat: [longitude, latitude]}) => setCoordinates({longitude, latitude})
+
   return (
     <div className='mapWrapper'>
       {dataFetch.error && <div className='error'>{dataFetch.error}</div>}
@@ -51,12 +53,12 @@ const Map = () => {
         ? <CircularProgress />
         : (
           <Fragment>
-            <MapGL
+            <InteractiveMap
               {...viewport}
               mapboxApiAccessToken={token}
               mapStyle='mapbox://styles/mapbox/streets-v11'
               onViewportChange={onViewportChange}
-              onNativeClick={e => setCoordinates({latitude: e.lngLat[0], longitude: e.lngLat[1]})}
+              onClick={handleClick}
             >
               <Marker latitude={coordinates.latitude} longitude={coordinates.longitude} >
                 <FiberManualRecordIcon style={{ color: 'crimson', fontSize: 28, cursor: 'pointer' }} />
@@ -95,7 +97,7 @@ const Map = () => {
                   </Source>
                 </Fragment>
               }
-            </MapGL>
+            </InteractiveMap>
             <DataChart latitude={coordinates.latitude} longitude={coordinates.longitude} />
           </Fragment>
         )

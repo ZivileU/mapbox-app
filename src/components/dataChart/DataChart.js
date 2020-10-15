@@ -1,11 +1,11 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CustomTooltip from './customTooltip/CustomTooltip'
 import { mapData } from './dataChart.utility'
 import './dataChart.css'
 
-const DataChart = ({ latitude, longitude }) => {
+const DataChart = ({latitude, longitude}) => {
   const apiUrl = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${latitude}&lon=${longitude}`
 
   const [dataFetch, setDataFetch] = useState({
@@ -39,26 +39,24 @@ const DataChart = ({ latitude, longitude }) => {
   return (
     <div className='dataChart'>
       {dataFetch.error && <div className='error'>{dataFetch.error}</div>}
+      <h3>Wind speed for the next 12h</h3>
       {dataFetch.loading
         ? <CircularProgress />
         : (
-          <Fragment>
-            <h3>Wind speed for the next 12h</h3>
-            <LineChart width={650} height={200} data={dataFetch.data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray='3 3' />
-              <XAxis dataKey='time' />
-              <YAxis />
-              <Tooltip content={ <CustomTooltip /> } />
-              <Line type='monotone' dataKey='windSpeed' stroke='#75CFF0' strokeWidth='2' activeDot={{ r: 7 }} />
-            </LineChart>
-            <div className='legend'>
-              <span>Bicycle paths:</span>
-              <span>Regular</span>
-              <span>Green</span>
-            </div>
-          </Fragment>
+          <LineChart width={650} height={200} data={dataFetch.data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis dataKey='time' />
+            <YAxis />
+            <Tooltip content={ <CustomTooltip /> } />
+            <Line type='monotone' dataKey='windSpeed' stroke='#75CFF0' strokeWidth='2' activeDot={{r: 7}} />
+          </LineChart>
         )
       }
+      <div className='legend'>
+        <span>Bicycle paths:</span>
+        <span>Regular</span>
+        <span>Green</span>
+      </div>
     </div>
   )
 }

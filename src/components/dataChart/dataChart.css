@@ -6,7 +6,10 @@
   margin: 12px;
   padding: 18px 36px 36px 0;
   width: 650px;
-  height: 265px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
 }
 
 h3 {
@@ -17,6 +20,7 @@ h3 {
 .legend {
   display: flex;
   justify-content: space-evenly;
+  padding-top: 4px;
 }
 
 .legend span {
@@ -39,7 +43,5 @@ h3 {
 }
 
 .dataChart .MuiCircularProgress-root {
-  position: absolute;
-  top: 50%;
-  margin-top: -20px;
+  margin: 0 auto;
 }
