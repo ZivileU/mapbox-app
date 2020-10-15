@@ -39,7 +39,10 @@ const DataChart = ({latitude, longitude}) => {
   return (
     <div className='dataChart'>
       {dataFetch.error && <div className='error'>{dataFetch.error}</div>}
-      <h3>Wind speed for the next 12h</h3>
+      <div>
+        <h3>Wind speed for the next 12h</h3>
+        <p>Click on the map to see data for the location</p>
+      </div>
       {dataFetch.loading
         ? <CircularProgress />
         : (
