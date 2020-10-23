@@ -17,10 +17,6 @@ h3 {
   margin: 12px 0;
 }
 
-p {
-  color: rgb(102, 102, 102);
-}
-
 .legend {
   display: flex;
   justify-content: space-evenly;
