@@ -7,9 +7,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import './Map.css'
 
 const token ='pk.eyJ1Ijoieml2aWxldSIsImEiOiJja2c2aHRmMDAwZW95Mndtb2lyamRkcXFnIn0.ux3wBgiUgLiF4DXA3ogXZQ'
-const apiUrl = `https://wfs-kbhkort.kk.dk/k101/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=k101:cykeldata_kk&outputFormat=json&SRSNAME=EPSG:4326`
 
-const Map = () => {
+const Map = ({apiUrl}) => {
   const [viewport, setViewPort] = useState({
     width: '100vw',
     height: '100vh',
@@ -40,7 +39,7 @@ const Map = () => {
       }).catch(() => {
         setDataFetch({error: 'Failed to retrieve data', loading: false})
       })
-  }, [setDataFetch])
+  }, [apiUrl, setDataFetch])
 
   const greenRoutes = dataFetch.data?.features.filter(entry => entry.properties.under_kategori === 'Grøn')
 
